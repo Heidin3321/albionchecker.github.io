@@ -1,2 +1,0 @@
-# albionchecker.github.io
-abcde
