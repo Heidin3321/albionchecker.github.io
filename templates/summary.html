@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gear Summary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Gear Summary</h1>
+            <input type="text" id="searchInput" class="input" placeholder="Search...">
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Category</th>
+                        <th>Tier</th>
+                        <th>Enchantment</th>
+                        <th>Item</th>
+                        <th>Withdraw</th>
+                        <th>Added</th>
+                    </tr>
+                </thead>
+                <tbody id="gearSummaryTable">
+                    {% for item, data in gear_summary.items() %}
+                    <tr>
+                        <td><img src="{{ item_image_urls.get(item, '') }}" alt="{{ item }}" width="30" height="30"></td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.tier }}</td>
+                        <td>{{ data.enchantment }}</td>
+                        <td>{{ item }}</td>
+                        <td>{{ data.withdraw }}</td>
+                        <td>{{ data.added }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tableRows = document.getElementById('gearSummaryTable').getElementsByTagName('tr');
+
+            for (let row of tableRows) {
+                const itemName = row.getElementsByTagName('td')[4].textContent.toLowerCase();
+                if (itemName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
